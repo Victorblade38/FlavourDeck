@@ -43,11 +43,11 @@ function App() {
   };
 
   return (
-    <div className="h-screen flex flex-col gap-10 justify-center items-center bg-gradient-to-br from-orange-400 to-orange-700">
-      <div className="glass-effect p-20">
-        <div className="flex flex-row justify-center mb-8">
+    <div className="h-screen w-screen overflow-none flex justify-center items-center md:items-start   bg-gradient-to-br from-orange-400 to-orange-700">
+      <div className="md:p-10 md:mt-20 flex flex-col gap-4">
+        <div className="flex flex-row justify-center ">
           <form
-            className="flex flex-row"
+            className="flex flex-row gap-2"
             onSubmit={onSubmitHandler}
             id="search-form"
           >
@@ -55,21 +55,21 @@ function App() {
               type="text"
               name="input"
               placeholder="search"
-              className="w-96 focus:outline-none p-3 placeholder:text-white rounded-md shadow-md"
+              className="md:w-64 focus:outline-none p-2 text-sm md:p-3 placeholder:text-white rounded-md shadow-md"
               disabled
             />
             <button
-              className="bg-slate-100 px-4 ml-2 rounded-md shadow-md"
+              className="bg-slate-100 px-2  rounded-md shadow-md"
               disabled
             >
-              <img src={search} width={20} alt="Search" />
+              <img src={search} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
           <button
-            className="bg-white px-4 ml-2 rounded-md shadow-md"
+            className="bg-white px-2 md:px-4 ml-2 rounded-md shadow-md"
             onClick={toggleShowSaved}
           >
-            <img src={bookmark} width={20} alt="Bookmark" />
+            <img src={bookmark} className="w-[14px] md:w-5" alt="Bookmark" />
           </button>
         </div>
         {loading ? (
@@ -77,14 +77,15 @@ function App() {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div
-            style={{
-              height: "640px",
-              scrollbarWidth: "none", // For Firefox
-              msOverflowStyle: "none", // For IE and Edge
-            }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto"
-          >
+          <div className="h-[450px] md:h-[800px] lg:h-[460px] xl:h-[530px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 overflow-y-scroll no-scrollbar">
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
             <Cards />
             <Cards />
             <Cards />
