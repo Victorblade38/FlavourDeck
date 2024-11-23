@@ -1,49 +1,53 @@
-import React, { useState } from "react";
-import randomImg from "../assets/pasta.jpg";
+import React from "react";
+import timer from "../assets/stopwatch.png";
+import flame from "../assets/calories.png";
+import pasta from "../assets/pasta.jpg";
 
-const Cards = ({
-  title = "American election in 12 days ,Trump vs kamala,Who will win ?",
-  url,
-  urlToImage,
-  onSave,
-  isSaved,
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-
+const Cards = ({ recipe, onCookClick }) => {
   return (
-    <div
-      className={`w-40 h-52 md:w-56 md:h-56 lg:h-64 relative  bg-black font-sans flex justify-center items-center rounded-md shadow-md`}
-    >
+    <div className="w-[170px] h-[240px] lg:w-[400px] lg:h-[250px] flex flex-col lg:flex-row p-2 gap-1 lg:gap-0 bg-white rounded-2xl md:shadow-xl">
       <img
-        src={randomImg}
+        src={pasta}
         alt=""
-        className="w-full h-full rounded-md opacity-40"
+        className="h-1/2 lg:w-1/2 lg:h-full object-cover rounded-2xl"
       />
-      <div className="flex flex-col  gap-2 absolute p-4">
-        <div className="flex flex-col gap-2 text-white">
-          <h1 className="text-base md:text-xl  font-bold">
-            Spicy Garlic Butter Pasta
-          </h1>
-          <button className="w-14 md:w-24 text-white text-[10px] md:text-sm  bg-red-600  font-semibold  rounded-sm ">
-            Spicy
-          </button>
-          <p className="flex h-[80px] lg:h-[100px] text-[12px] md:text-sm overflow-y-scroll no-scrollbar">
-            Spaghetti or your choice of pasta, Butter, Garlic (minced), Red
-            chili flakes,Salt, Black pepper, Parmesan cheese (optional), Fresh
-            parsley (optional for garnish)
+      <div className="h-1/2 lg:w-1/2 flex flex-col px-1 lg:p-3">
+        <p className="h-14 text-sm lg:text-lg font-bold font-serif">
+          {recipe.name}
+        </p>
+        <div className="h-12 flex flex-row gap-3">
+          <div className="flex flex-row items-center gap-1 lg:gap-2">
+            <img
+              src={timer}
+              alt="Timer Icon"
+              className="w-3 h-3 lg:w-4 lg:h-4"
+            />
+            <p className="text-[12px] lg:text-[14px] font-medium">
+              {recipe.estimatedTime}
+            </p>
+          </div>
+          <div className="flex flex-row items-center gap-1 lg:gap-2">
+            <img
+              src={flame}
+              alt="Calories Icon"
+              className="w-3 h-3 lg:w-4 lg:h-4"
+            />
+            <p className="text-[12px] lg:text-[14px] font-medium">
+              {recipe.calories}
+            </p>
+          </div>
+        </div>
+        <div className="h-24">
+          <p className="hidden overflow-clip lg:flex lg:h-[85px]  row-span-2 text-[13px] text-slate-400">
+            {recipe.howToMake}
           </p>
         </div>
-        <div className="flex flex-row gap-2 text-[12px] md:text-sm font-semibold justify-between">
-          <button className=" bg-red-600 text-white w-full rounded-sm shadow-sm">
-            Cook
-          </button>
-          <button
-            className="bg-white text-black active:text-white active:bg-gray-800 w-full  rounded-sm shadow-sm"
-            onClick={onSave}
-          >
-            {isSaved ? "Unsave" : "Save"}
-          </button>
-        </div>
+        <button
+          className="bottom-0 p-1 text-sm lg:text-lg bg-orange-400 hover:bg-orange-500 active:bg-orange-700 text-white font-semibold rounded-md"
+          onClick={() => onCookClick(recipe)}
+        >
+          Cook
+        </button>
       </div>
     </div>
   );

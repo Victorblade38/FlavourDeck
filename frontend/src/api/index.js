@@ -1,6 +1,6 @@
 async function getData(query) {
-  const apiKey = import.meta.env.VITE_NEWS_API_KEY;
-  const url = `https://api.worldnewsapi.com/top-news?&api-key=${apiKey}&source-country=in&language=en&q=${query}`;
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${query}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
