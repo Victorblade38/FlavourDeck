@@ -1,33 +1,45 @@
-import search from "./assets/search.png";
-import bookmark from "./assets/bookmark.png";
+import search_icon from "./assets/search.png";
 import Cards from "./components/Cards";
 import liked from "./assets/liked.png";
-import { useState } from "react";
+import theme_icon from "./assets/dark-mode.png";
+import { useEffect, useState } from "react";
 import CookCard from "./components/CookCard";
 import recipes from "./components/recipes";
 
 function App() {
   const [data, setData] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [search, setSearch] = useState("");
   const [showSaved, setShowSaved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  //console.log(typeof data);
+
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+
+  useEffect(() => {
+    const recipeData = localStorage.getItem("recipes");
+    if (recipeData) {
+      setData(JSON.parse(recipeData));
+    }
+  }, []);
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const query = e.target.input.value;
-      console.log(query);
-      //const res = await getData(query);
-      //const topNews = res["top_news"];
-      //const filterNews = topNews.map((item) => item["news"][0]);
-      //setData(filterNews);
-    } catch (error) {
-      setError("Failed to fetch data");
-      console.error(error);
-    } finally {
-      setLoading(false);
+    const searchTerm = search.trim();
+    if (searchTerm) {
+      const filtered = data.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredData(filtered);
     }
+  };
+
+  const [theme, setTheme] = useState("light");
+  const toggleThemeChange = () => {
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   const handleSaveCard = (card) => {
@@ -44,7 +56,7 @@ function App() {
   };
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [selectedRecipe, setSelectedRecipe] = useState();
 
   const openModal = (recipe) => {
     setSelectedRecipe(recipe);
@@ -53,33 +65,47 @@ function App() {
 
   const closeModal = () => {
     setShowModal(false);
-    setSelectedRecipe(null);
+    setSelectedRecipe();
   };
 
   return (
-    <div className="h-screen w-screen overflow-none flex justify-center items-center md:items-start bg-gray-200">
-      <div className="md:p-10 md:mt-20 flex flex-col gap-4">
-        <div className="flex flex-row justify-center ">
+    <div className={`bg-[#FFFFE4] min-h-screen flex justify-center p-2`}>
+      <div className="flex flex-col  gap-2 mt-6 md:mt-20 ">
+        <div className="w-full flex flex-row justify-center">
           <form
-            className="flex flex-row gap-2 bg-white rounded-md shadow-md"
+            className=" flex flex-row gap-2 border-[1px] bg-white rounded-md "
             id="search-form"
             onSubmit={onSubmitHandler}
           >
             <input
               type="text"
               name="input"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="search"
-              className="md:w-64 focus:outline-none p-2 text-sm md:p-3 rounded-md"
+              className="focus:outline-none p-1 text-[12px] md:text-sm md:p-3 rounded-md"
             />
-            <button className="px-2">
-              <img src={search} className="w-[14px] md:w-6" alt="Search" />
+            <button className="px-2 active:bg-gray-200">
+              <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
           <button
-            className="bg-white px-2 md:px-4 ml-2 rounded-md shadow-md"
+            className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md "
+            onClick={toggleShowSaved}
+          >
+            +
+          </button>
+          <button
+            className="bg-white px-2 md:px-4 ml-auto border-[1px] active:bg-gray-200 rounded-md "
             onClick={toggleShowSaved}
           >
             <img src={liked} className="w-[14px] md:w-5" alt="Bookmark" />
+          </button>
+          <button
+            className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md "
+            onClick={toggleShowSaved}
+          >
+            <img src={theme_icon} className="w-[14px] md:w-5" alt="Bookmark" />
           </button>
         </div>
         {loading ? (
@@ -87,14 +113,22 @@ function App() {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div className="h-[500px] lg:h-[800px] xl:h-[530px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-2 overflow-y-scroll no-scrollbar">
-            {recipes.map((recipe, index) => (
-              <Cards key={index} recipe={recipe} openModal={openModal} />
-            ))}
+          <div className=" lg:h-auto xl:h-[780px]  grid  grid-cols-1 lg:grid-cols-3 xl:grid-cols-4  gap-1 md:gap-2 overflow-y-scroll no-scrollbar">
+            {(filteredData.length > 0 ? filteredData : data).map(
+              (recipe, index) => (
+                <Cards key={index} recipe={recipe} openModal={openModal} />
+              )
+            )}
           </div>
         )}
       </div>
-      {showModal && <CookCard recipe={selectedRecipe} onClose={closeModal} />}
+      {showModal && (
+        <CookCard
+          recipe={selectedRecipe}
+          showModal={showModal}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }
