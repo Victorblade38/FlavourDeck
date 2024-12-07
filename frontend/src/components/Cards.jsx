@@ -42,7 +42,7 @@ const Cards = ({ recipe, openModal, theme }) => {
     >
       <p
         title="double click to know more"
-        className="ml-1 hind-mysuru-bold text-lg cursor-pointer"
+        className="ml-1 roboto-bold   text-lg cursor-pointer "
       >
         {recipe.name}
       </p>
@@ -85,7 +85,8 @@ const Cards = ({ recipe, openModal, theme }) => {
         </div>
         <p
           title="decription of the recipe"
-          className="overflow-hidden text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-5"
+          className="overflow-hidden 
+          hind-mysuru-semibold text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-5"
         >
           {recipe.howToMake}
         </p>

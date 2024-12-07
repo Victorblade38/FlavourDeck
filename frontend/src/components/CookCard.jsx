@@ -9,10 +9,7 @@ const CookCard = ({ recipe, onClose, showModal }) => {
       } items-center justify-center z-50`}
     >
       <div className="w-[300px] bg-white flex flex-col items-center p-6 rounded-lg shadow-lg">
-        <button
-          className="self-end mb-2 text-red-500 bg-blue-100 "
-          onClick={onClose}
-        >
+        <button className="self-end mb-2 text-red-500 " onClick={onClose}>
           Close
         </button>
         <h1 className="text-xl font-bold">{recipe.name}</h1>

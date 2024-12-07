@@ -76,7 +76,7 @@ function App() {
     <div
       className={`${
         theme === "light" ? "bg-amber-300" : "bg-gray-800"
-      } min-h-screen flex justify-center p-2 font-medium hind-mysuru-semibold`}
+      } min-h-screen flex justify-center p-2 roboto-medium `}
     >
       <div className="flex flex-col  gap-2 mt-6 md:mt-20 ">
         <div className="w-full flex flex-row justify-center">
