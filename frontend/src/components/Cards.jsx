@@ -62,14 +62,14 @@ const Cards = ({ recipe, openModal, theme }) => {
             className="flex flex-row items-center gap-1"
           >
             <img src={timer} alt="timer-icon" className="w-4 h-4" />
-            <p className="text-sm">{recipe.estimatedTime} min</p>
+            <p className="text-sm pt-0.5">{recipe.estimatedTime} min</p>
           </div>
           <div
             title="Estimated calorie count"
             className="flex flex-row items-center gap-1"
           >
             <img src={flame} alt="flame-icon" className="w-4 h-4" />
-            <p className="text-sm">{recipe.calories} cal</p>
+            <p className="text-sm pt-0.5">{recipe.calories} cal</p>
           </div>
           <button
             title="click to save the recipe"
