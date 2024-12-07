@@ -25,8 +25,7 @@ function App() {
     }
   }, []);
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
     const searchTerm = search.trim();
     if (searchTerm) {
       const filtered = data.filter((item) =>
@@ -34,7 +33,7 @@ function App() {
       );
       setFilteredData(filtered);
     }
-  };
+  }, [search]);
 
   const [theme, setTheme] = useState("light");
 
@@ -78,12 +77,11 @@ function App() {
         theme === "light" ? "bg-amber-300" : "bg-gray-800"
       } min-h-screen flex justify-center p-2 roboto-medium `}
     >
-      <div className="flex flex-col  gap-2 mt-6 md:mt-20 ">
-        <div className="w-full flex flex-row justify-center">
+      <div className="flex flex-col gap-2 mt-6 md:mt-20 ">
+        <div className="w-full flex flex-row justify-center gap-2">
           <form
             className=" flex flex-row gap-2 border-[1px] bg-white rounded-md "
             id="search-form"
-            onSubmit={onSubmitHandler}
           >
             <input
               type="text"
@@ -91,17 +89,17 @@ function App() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="search"
-              className="focus:outline-none p-1 text-[12px] md:text-sm md:p-3 rounded-md"
+              className="focus:outline-none p-2 text-[12px] md:text-sm md:p-3 rounded-md"
             />
             <button className="px-2 active:bg-gray-200">
               <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
-          <button className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md hidden">
+          <button className="bg-white px-2 md:px-4 border-[1px] active:bg-gray-200 rounded-md hidden">
             +
           </button>
           <button
-            className="bg-white px-2 md:px-4 ml-auto border-[1px] active:bg-gray-200 rounded-md "
+            className="bg-white px-2 md:px-4border-[1px] active:bg-gray-200 rounded-md "
             onClick={handleSaveCard}
             title="View saved recipes"
             aria-label="View saved recipes"
@@ -110,7 +108,7 @@ function App() {
           </button>
           <button
             title="Change theme"
-            className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md "
+            className="bg-white px-2 md:px-4  border-[1px] active:bg-gray-200 rounded-md "
             onClick={toggleThemeChange}
           >
             <img src={theme_icon} className="w-[14px] md:w-5" alt="Bookmark" />
