@@ -1,7 +1,7 @@
 import React from "react";
 
 const CookCard = ({ recipe, onClose, showModal }) => {
-  console.log(recipe);
+  //console.log(typeof recipe);
   return (
     <div
       className={`fixed min-h-screen min-w-screen  inset-0 bg-black bg-opacity-50 ${

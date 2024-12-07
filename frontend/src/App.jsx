@@ -8,7 +8,6 @@ import recipes from "./components/recipes";
 
 function App() {
   const [data, setData] = useState([]);
-  const [savedCards, setSavedCards] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
   const [showSaved, setShowSaved] = useState(false);
@@ -38,16 +37,16 @@ function App() {
   };
 
   const [theme, setTheme] = useState("light");
+
   const toggleThemeChange = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  const handleSaveCard = (card) => {
-    const isSaved = savedCards.some((saved) => saved.url === card.url);
-    if (isSaved) {
-      setSavedCards(savedCards.filter((saved) => saved.url !== card.url));
+  const handleSaveCard = () => {
+    if (filteredData.length === 0) {
+      setFilteredData(data.filter((item) => item.saved === true));
     } else {
-      setSavedCards([...savedCards, card]);
+      setFilteredData([]);
     }
   };
 
@@ -56,9 +55,10 @@ function App() {
   };
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState();
+  const [selectedRecipe, setSelectedRecipe] = useState({});
 
   const openModal = (recipe) => {
+    console.log(recipe);
     setSelectedRecipe(recipe);
     setShowModal(true);
   };
@@ -69,7 +69,11 @@ function App() {
   };
 
   return (
-    <div className={`bg-[#FFFFE4] min-h-screen flex justify-center p-2`}>
+    <div
+      className={`${
+        theme === "light" ? "bg-amber-300" : "bg-gray-800"
+      } min-h-screen flex justify-center p-2 font-medium`}
+    >
       <div className="flex flex-col  gap-2 mt-6 md:mt-20 ">
         <div className="w-full flex flex-row justify-center">
           <form
@@ -89,21 +93,20 @@ function App() {
               <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
-          <button
-            className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md "
-            onClick={toggleShowSaved}
-          >
+          <button className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md ">
             +
           </button>
           <button
             className="bg-white px-2 md:px-4 ml-auto border-[1px] active:bg-gray-200 rounded-md "
-            onClick={toggleShowSaved}
+            onClick={handleSaveCard}
+            title="Click to see saved recipes"
           >
             <img src={liked} className="w-[14px] md:w-5" alt="Bookmark" />
           </button>
           <button
+            title="Change theme"
             className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md "
-            onClick={toggleShowSaved}
+            onClick={toggleThemeChange}
           >
             <img src={theme_icon} className="w-[14px] md:w-5" alt="Bookmark" />
           </button>
@@ -113,10 +116,15 @@ function App() {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div className=" lg:h-auto xl:h-[780px]  grid  grid-cols-1 lg:grid-cols-3 xl:grid-cols-4  gap-1 md:gap-2 overflow-y-scroll no-scrollbar">
+          <div className=" xl:h-[780px]  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-1 md:gap-2 overflow-y-scroll ">
             {(filteredData.length > 0 ? filteredData : data).map(
               (recipe, index) => (
-                <Cards key={index} recipe={recipe} openModal={openModal} />
+                <Cards
+                  theme={theme}
+                  key={index}
+                  recipe={recipe}
+                  openModal={() => openModal(recipe)}
+                />
               )
             )}
           </div>

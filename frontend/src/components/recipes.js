@@ -8,6 +8,7 @@ const recipes = [
       "Cook pasta until al dente. In another pan, sauté chicken with spices and garlic. Mix with pasta and cream. Serve hot.",
     type: "non-veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Vegetable Stir-fry",
@@ -18,6 +19,7 @@ const recipes = [
       "Heat oil in a wok, add garlic, then vegetables. Stir-fry with soy sauce until tender. Serve with rice.",
     type: "veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Classic Caesar Salad",
@@ -28,6 +30,7 @@ const recipes = [
       "Toss romaine with Caesar dressing, sprinkle parmesan, and add croutons. Serve immediately.",
     type: "veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Grilled Salmon",
@@ -38,6 +41,7 @@ const recipes = [
       "Brush salmon with olive oil, season with salt and pepper. Grill for 10 minutes each side, then squeeze lemon over it.",
     type: "non-veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Beef Tacos",
@@ -48,6 +52,7 @@ const recipes = [
       "Cook ground beef with spices. Fill taco shells with beef, lettuce, cheese, and salsa. Serve hot.",
     type: "non-veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Mushroom Risotto",
@@ -58,6 +63,7 @@ const recipes = [
       "Sauté onions and mushrooms, then add rice. Gradually add broth while stirring until creamy. Finish with parmesan.",
     type: "veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Paneer Butter Masala",
@@ -68,6 +74,7 @@ const recipes = [
       "Cook tomato puree with spices, add butter and cream. Simmer with paneer cubes. Serve with naan or rice.",
     type: "veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Chicken Biryani",
@@ -78,6 +85,7 @@ const recipes = [
       "Marinate chicken with yogurt and spices. Layer cooked rice with chicken. Steam until aromatic. Serve with raita.",
     type: "non-veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Vegetable Soup",
@@ -88,6 +96,7 @@ const recipes = [
       "Simmer vegetables in stock with herbs until tender. Blend partially for a thick texture. Serve warm.",
     type: "veg",
     imgUrl: null,
+    saved: false,
   },
   {
     name: "Pancakes",
@@ -98,6 +107,7 @@ const recipes = [
       "Mix flour, milk, eggs, and sugar into a batter. Cook on a greased pan until golden on both sides. Serve with syrup.",
     type: "veg",
     imgUrl: null,
+    saved: false,
   },
 ];
 
