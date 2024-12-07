@@ -7,6 +7,7 @@ import liked from "../assets/liked.png";
 
 const Cards = ({ recipe, openModal, theme }) => {
   const [saved, setSaved] = useState(recipe.saved || false);
+  const [isTouch, setIsTouch] = useState(false);
 
   const saveHandler = () => {
     setSaved(!saved);
@@ -15,10 +16,22 @@ const Cards = ({ recipe, openModal, theme }) => {
     //console.log("Recipe saved status", recipe.saved);
   };
 
+  const handleTouchStart = () => {
+    setIsTouch(true); // Set to true when touch starts
+  };
+
   const handleTouchEnd = (e) => {
-    if (e.touches.length === 0) {
-      openModal();
+    if (isTouch) {
+      setIsTouch(false); // Reset flag
+      return; // Prevent modal from opening when scrolling or tapping
     }
+    // Trigger modal open if it's a valid tap
+    openModal();
+  };
+
+  // To handle double-click (mouse interaction) for the desktop or larger screens:
+  const handleDoubleClick = () => {
+    openModal();
   };
 
   return (
@@ -36,8 +49,9 @@ const Cards = ({ recipe, openModal, theme }) => {
       <img
         title="double click to know more"
         src={recipe.imgUrl || pasta}
-        onDoubleClick={openModal}
-        onTouchEnd={handleTouchEnd}
+        onDoubleClick={handleDoubleClick}
+        onTouchStart={handleTouchStart} // Detect the start of a touch
+        onTouchEnd={handleTouchEnd} // Handle touch end
         alt="recipe-image"
         className="h-2/3 md:h-1/2  object-cover cursor-pointer rounded-md"
       />
