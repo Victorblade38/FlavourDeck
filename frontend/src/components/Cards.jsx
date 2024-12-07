@@ -42,7 +42,7 @@ const Cards = ({ recipe, openModal, theme }) => {
     >
       <p
         title="double click to know more"
-        className="ml-1 text-left font-bold font-serif text-lg cursor-pointer"
+        className="ml-1 hind-mysuru-bold text-lg cursor-pointer"
       >
         {recipe.name}
       </p>
