@@ -25,3 +25,10 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

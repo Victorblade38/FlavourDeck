@@ -6,37 +6,30 @@ import like from "../assets/like.png";
 import liked from "../assets/liked.png";
 
 const Cards = ({ recipe, openModal, theme }) => {
-  const [saved, setSaved] = useState(false);
-
-  const truncateText = (text, maxLength) => {
-    // Check if the text needs to be truncated
-    if (window.innerWidth < 768) {
-      // Truncate text if needed
-      if (text.length <= maxLength) {
-        return text;
-      }
-      return text.slice(0, maxLength) + "...";
-    }
-    return text;
-  };
+  const [saved, setSaved] = useState(recipe.saved || false);
 
   const saveHandler = () => {
     setSaved(!saved);
-    recipe.saved = saved;
+    recipe.saved = !saved;
+    //console.log("Recipe-name", recipe.name);
+    //console.log("Recipe saved status", recipe.saved);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (e.touches.length === 0) {
+      openModal();
+    }
   };
 
   return (
     <div
       className={` ${
-        theme === "light"
-          ? "md:bg-white text-gray-900"
-          : "md:bg-gray-700 text-white"
+        theme === "light" ? "bg-white text-gray-900" : "bg-gray-700 text-white"
       } p-2 md:p-3 h-80  md:h-80 md:w-60 lg:h-96 lg:w-64 flex flex-col gap-1 md:gap-2.5   rounded-md md:shadow-md`}
     >
       <p
         title="double click to know more"
         className="ml-1 text-left font-bold font-serif text-lg cursor-pointer"
-        onDoubleClick={openModal}
       >
         {recipe.name}
       </p>
@@ -44,6 +37,7 @@ const Cards = ({ recipe, openModal, theme }) => {
         title="double click to know more"
         src={recipe.imgUrl || pasta}
         onDoubleClick={openModal}
+        onTouchEnd={handleTouchEnd}
         alt="recipe-image"
         className="h-2/3 md:h-1/2  object-cover cursor-pointer rounded-md"
       />
@@ -69,7 +63,7 @@ const Cards = ({ recipe, openModal, theme }) => {
             className="ml-auto px-2 py-1"
           >
             <img
-              src={recipe.saved ? liked : like}
+              src={recipe.saved === true ? liked : like}
               alt="like_icon"
               className="w-4 h-4"
             />
@@ -77,9 +71,9 @@ const Cards = ({ recipe, openModal, theme }) => {
         </div>
         <p
           title="decription of the recipe"
-          className="overflow-hidden text-sm lg:text-"
+          className="overflow-hidden text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-5"
         >
-          {truncateText(recipe.howToMake, 100)}
+          {recipe.howToMake}
         </p>
       </div>
     </div>

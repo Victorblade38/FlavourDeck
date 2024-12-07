@@ -43,22 +43,26 @@ function App() {
   };
 
   const handleSaveCard = () => {
+    setLoading(true);
+    setFilteredData([]);
     if (filteredData.length === 0) {
       setFilteredData(data.filter((item) => item.saved === true));
     } else {
       setFilteredData([]);
     }
+    //console.log("Filtering Data response", filteredData);
+    setLoading(false);
   };
 
-  const toggleShowSaved = () => {
-    setShowSaved(!showSaved);
-  };
+  // const toggleShowSaved = () => {
+  //   setShowSaved(!showSaved);
+  // };
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
 
   const openModal = (recipe) => {
-    console.log(recipe);
+    console.log("modal clicked");
     setSelectedRecipe(recipe);
     setShowModal(true);
   };
@@ -93,13 +97,14 @@ function App() {
               <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
-          <button className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md ">
+          <button className="bg-white px-2 md:px-4 ml-2 border-[1px] active:bg-gray-200 rounded-md hidden">
             +
           </button>
           <button
             className="bg-white px-2 md:px-4 ml-auto border-[1px] active:bg-gray-200 rounded-md "
             onClick={handleSaveCard}
-            title="Click to see saved recipes"
+            title="View saved recipes"
+            aria-label="View saved recipes"
           >
             <img src={liked} className="w-[14px] md:w-5" alt="Bookmark" />
           </button>
@@ -116,7 +121,7 @@ function App() {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div className=" xl:h-[780px]  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-1 md:gap-2 overflow-y-scroll ">
+          <div className=" xl:h-[780px]  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-2 overflow-y-scroll no-scrollbar">
             {(filteredData.length > 0 ? filteredData : data).map(
               (recipe, index) => (
                 <Cards
