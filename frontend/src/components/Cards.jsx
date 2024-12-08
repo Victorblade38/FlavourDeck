@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import timer from "../assets/stopwatch.png";
-import flame from "../assets/calories.png";
 import pasta from "../assets/pasta.jpg";
 import like from "../assets/like.png";
 import liked from "../assets/liked.png";
+import { MdTimer } from "react-icons/md";
+import { FaFireFlameCurved } from "react-icons/fa6";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 const Cards = ({ recipe, openModal, theme }) => {
   const [saved, setSaved] = useState(recipe.saved || false);
@@ -37,7 +39,7 @@ const Cards = ({ recipe, openModal, theme }) => {
   return (
     <div
       className={` ${
-        theme === "light" ? "bg-white text-gray-900" : "bg-gray-700 text-white"
+        theme === "light" ? "bg-white text-gray-900" : "bg-gray-800 text-white"
       } p-2 md:p-3 h-80  md:h-80 md:w-60 lg:h-96 lg:w-64 flex flex-col gap-1 md:gap-2.5   rounded-md md:shadow-md`}
     >
       <p
@@ -59,16 +61,16 @@ const Cards = ({ recipe, openModal, theme }) => {
         <div className="flex flex-row items-center gap-4">
           <div
             title="Estimated time to cook"
-            className="flex flex-row items-center gap-1"
+            className=" flex flex-row items-center gap-1"
           >
-            <img src={timer} alt="timer-icon" className="w-4 h-4" />
+            <MdTimer className="text-xl" />
             <p className="text-sm pt-0.5">{recipe.estimatedTime} min</p>
           </div>
           <div
             title="Estimated calorie count"
             className="flex flex-row items-center gap-1"
           >
-            <img src={flame} alt="flame-icon" className="w-4 h-4" />
+            <FaFireFlameCurved className="text-lg" />
             <p className="text-sm pt-0.5">{recipe.calories} cal</p>
           </div>
           <button
@@ -76,11 +78,11 @@ const Cards = ({ recipe, openModal, theme }) => {
             onClick={saveHandler}
             className="ml-auto px-2 py-1"
           >
-            <img
-              src={recipe.saved === true ? liked : like}
-              alt="like_icon"
-              className="w-4 h-4"
-            />
+            {recipe.saved === true ? (
+              <FaHeart className="text-lg text-red-500" />
+            ) : (
+              <FaRegHeart className="text-lg " />
+            )}
           </button>
         </div>
         <p

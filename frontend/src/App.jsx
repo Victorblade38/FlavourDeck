@@ -5,14 +5,16 @@ import theme_icon from "./assets/dark-mode.png";
 import { useEffect, useState } from "react";
 import CookCard from "./components/CookCard";
 import recipes from "./components/recipes";
+import { FaHeart } from "react-icons/fa";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 function App() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
-  const [showSaved, setShowSaved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [theme, setTheme] = useState("light" || "dark");
 
   //console.log(typeof data);
 
@@ -32,10 +34,10 @@ function App() {
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredData(filtered);
+    } else {
+      setFilteredData([]);
     }
   }, [search]);
-
-  const [theme, setTheme] = useState("light");
 
   const toggleThemeChange = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -52,10 +54,6 @@ function App() {
     //console.log("Filtering Data response", filteredData);
     setLoading(false);
   };
-
-  // const toggleShowSaved = () => {
-  //   setShowSaved(!showSaved);
-  // };
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
@@ -74,7 +72,7 @@ function App() {
   return (
     <div
       className={`${
-        theme === "light" ? "bg-amber-300" : "bg-gray-800"
+        theme === "light" ? "bg-amber-300" : "bg-gray-700"
       } min-h-screen flex justify-center p-2 roboto-medium `}
     >
       <div className="flex flex-col gap-2 mt-6 md:mt-20 ">
@@ -104,14 +102,18 @@ function App() {
             title="View saved recipes"
             aria-label="View saved recipes"
           >
-            <img src={liked} className="w-[14px] md:w-5" alt="Bookmark" />
+            <FaHeart className="text-lg text-red-500" />
           </button>
           <button
             title="Change theme"
-            className="bg-white px-2 md:px-4  border-[1px] active:bg-gray-200 rounded-md "
+            className="bg-white px-2  border-[1px] active:bg-gray-200 rounded-md "
             onClick={toggleThemeChange}
           >
-            <img src={theme_icon} className="w-[14px] md:w-5" alt="Bookmark" />
+            {theme === "light" ? (
+              <MdLightMode className="text-2xl" />
+            ) : (
+              <MdDarkMode className="text-2xl" />
+            )}
           </button>
         </div>
         {loading ? (
@@ -119,7 +121,7 @@ function App() {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div className=" xl:h-[780px]  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-2 overflow-y-scroll no-scrollbar">
+          <div className=" xl:h-[780px]  grid  grid-cols-1 md:grid-cols-3 xl:grid-cols-4  gap-2 overflow-y-scroll no-scrollbar">
             {(filteredData.length > 0 ? filteredData : data).map(
               (recipe, index) => (
                 <Cards
