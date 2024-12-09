@@ -1,12 +1,33 @@
 import search_icon from "./assets/search.png";
 import Cards from "./components/Cards";
-import liked from "./assets/liked.png";
-import theme_icon from "./assets/dark-mode.png";
 import { useEffect, useState } from "react";
 import CookCard from "./components/CookCard";
-import recipes from "./components/recipes";
 import { FaHeart } from "react-icons/fa";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode, MdAdd } from "react-icons/md";
+import AddRecipeModal from "./components/AddRecipeModal";
+
+const defaultRecipes = [
+  {
+    id: 1,
+    name: "Spicy Chicken Pasta",
+    estimatedTime: 20,
+    calories: 400,
+    howToMake:
+      "Cook pasta until al dente. In another pan, sauté chicken with spices and garlic. Mix with pasta and cream. Serve hot.",
+    imgUrl: null,
+    saved: false,
+  },
+  {
+    id: 2,
+    name: "Vegetable Stir-fry",
+    estimatedTime: 15,
+    calories: 250,
+    howToMake:
+      "Heat oil in a wok, add garlic, then vegetables. Stir-fry with soy sauce until tender. Serve with rice.",
+    imgUrl: null,
+    saved: false,
+  },
+];
 
 function App() {
   const [data, setData] = useState([]);
@@ -15,17 +36,50 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [theme, setTheme] = useState("light" || "dark");
+  const [showModal, setShowModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState({});
 
   //console.log(typeof data);
 
-  localStorage.setItem("recipes", JSON.stringify(recipes));
+  const addRecipe = (data) => {
+    setData((prev) => [
+      {
+        id: Date.now(),
+        name: data.name,
+        estimatedTime: data.estimatedTime,
+        calories: data.calories,
+        howToMake: data.howToMake,
+        imgUrl: null,
+        saved: false,
+      },
+      ...prev,
+    ]);
+    setShowAddModal(false);
+  };
+
+  const deleteRecipe = (id) => {
+    setData((prev) => prev.filter((task) => task.id !== id));
+  };
 
   useEffect(() => {
-    const recipeData = localStorage.getItem("recipes");
-    if (recipeData) {
-      setData(JSON.parse(recipeData));
+    const storedRecipes = localStorage.getItem("recipes");
+
+    if (storedRecipes) {
+      // If recipes exist in localStorage, load them
+      setData(JSON.parse(storedRecipes));
+    } else {
+      // If no data in localStorage, set the default recipes
+      setData(defaultRecipes);
+      localStorage.setItem("recipes", JSON.stringify(defaultRecipes));
     }
   }, []);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      localStorage.setItem("recipes", JSON.stringify(data));
+    }
+  }, [data]);
 
   useEffect(() => {
     const searchTerm = search.trim();
@@ -55,13 +109,14 @@ function App() {
     setLoading(false);
   };
 
-  const [showModal, setShowModal] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState({});
-
   const openModal = (recipe) => {
     console.log("modal clicked");
     setSelectedRecipe(recipe);
     setShowModal(true);
+  };
+
+  const closeAddModal = () => {
+    setShowAddModal(false);
   };
 
   const closeModal = () => {
@@ -93,8 +148,11 @@ function App() {
               <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
-          <button className="bg-white px-2 md:px-4 border-[1px] active:bg-gray-200 rounded-md hidden">
-            +
+          <button
+            className="bg-white px-2 border-[1px] active:bg-gray-200 rounded-md"
+            onClick={() => setShowAddModal(!showAddModal)}
+          >
+            <MdAdd className="text-xl" />
           </button>
           <button
             className="bg-white px-2 md:px-4border-[1px] active:bg-gray-200 rounded-md "
@@ -128,6 +186,7 @@ function App() {
                   theme={theme}
                   key={index}
                   recipe={recipe}
+                  deleteRecipe={deleteRecipe}
                   openModal={() => openModal(recipe)}
                 />
               )
@@ -140,6 +199,13 @@ function App() {
           recipe={selectedRecipe}
           showModal={showModal}
           onClose={closeModal}
+        />
+      )}
+      {showAddModal && (
+        <AddRecipeModal
+          addRecipe={addRecipe}
+          closeAddModal={closeAddModal}
+          showAddModal={showAddModal}
         />
       )}
     </div>

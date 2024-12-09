@@ -5,9 +5,9 @@ import like from "../assets/like.png";
 import liked from "../assets/liked.png";
 import { MdTimer } from "react-icons/md";
 import { FaFireFlameCurved } from "react-icons/fa6";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaTrash } from "react-icons/fa";
 
-const Cards = ({ recipe, openModal, theme }) => {
+const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
   const [saved, setSaved] = useState(recipe.saved || false);
   const [isTouch, setIsTouch] = useState(false);
 
@@ -22,12 +22,17 @@ const Cards = ({ recipe, openModal, theme }) => {
     setIsTouch(true); // Set to true when touch starts
   };
 
+  const handleDelete = () => {
+    if (recipe.id === 1 || recipe.id === 2) {
+      alert("Cannot delete those");
+    } else deleteRecipe(recipe.id);
+  };
+
   const handleTouchEnd = (e) => {
     if (isTouch) {
-      setIsTouch(false); // Reset flag
-      return; // Prevent modal from opening when scrolling or tapping
+      setIsTouch(false);
+      return;
     }
-    // Trigger modal open if it's a valid tap
     openModal();
   };
 
@@ -40,14 +45,23 @@ const Cards = ({ recipe, openModal, theme }) => {
     <div
       className={` ${
         theme === "light" ? "bg-white text-gray-900" : "bg-gray-800 text-white"
-      } p-2 md:p-3 h-80  md:h-80 md:w-60 lg:h-96 lg:w-64 flex flex-col gap-1 md:gap-2.5   rounded-md md:shadow-md`}
+      } p-2 md:p-3 h-96  md:h-80 md:w-60 lg:h-96 lg:w-64 flex flex-col gap-2 md:gap-2.5   rounded-md md:shadow-md`}
     >
-      <p
-        title="double click to know more"
-        className="ml-1 roboto-bold   text-lg cursor-pointer "
-      >
-        {recipe.name}
-      </p>
+      <div className="flex flex-row items-center">
+        <p
+          title="double click to know more"
+          className="ml-1 roboto-bold   text-lg cursor-pointer "
+        >
+          {recipe.name}
+        </p>
+        <button
+          onClick={handleDelete}
+          title="click to save the recipe"
+          className="ml-auto px-1 py-1"
+        >
+          <FaTrash className="textlg" />
+        </button>
+      </div>
       <img
         title="double click to know more"
         src={recipe.imgUrl || pasta}
@@ -76,7 +90,7 @@ const Cards = ({ recipe, openModal, theme }) => {
           <button
             title="click to save the recipe"
             onClick={saveHandler}
-            className="ml-auto px-2 py-1"
+            className="ml-auto px-1 py-1"
           >
             {recipe.saved === true ? (
               <FaHeart className="text-lg text-red-500" />
