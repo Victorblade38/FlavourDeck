@@ -65,7 +65,7 @@ const AddRecipeModal = ({ showAddModal, closeAddModal, addRecipe }) => {
             onChange={handleChange}
             maxLength={30}
             type="text"
-            placeholder="enter recipe name"
+            placeholder="Enter recipe name"
             name="name"
             className="focus:outline-none border-2 p-2 rounded-md"
             required
