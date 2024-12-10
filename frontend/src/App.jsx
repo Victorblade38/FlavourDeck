@@ -8,6 +8,7 @@ import AddRecipeModal from "./components/AddRecipeModal";
 import defaultRecipes from "./components/recipes";
 
 function App() {
+  const defaultTheme = "light";
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [theme, setTheme] = useState(
@@ -42,7 +43,6 @@ function App() {
     setData((prev) => prev.filter((task) => task.id !== id));
     setIsFading(false);
   };
-  const defaultTheme = "light";
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -128,7 +128,10 @@ function App() {
               placeholder="search"
               className="focus:outline-none p-2 text-[12px] md:text-sm md:p-3 rounded-md"
             />
-            <button className="px-2 active:bg-gray-200">
+            <button
+              className="px-2 active:bg-gray-200"
+              onClick={(e) => e.preventDefault()}
+            >
               <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
             </button>
           </form>
