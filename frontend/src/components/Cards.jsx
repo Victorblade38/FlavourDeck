@@ -10,6 +10,7 @@ import { FaRegHeart, FaHeart, FaTrash } from "react-icons/fa";
 const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
   const [saved, setSaved] = useState(recipe.saved || false);
   const [isTouch, setIsTouch] = useState(false);
+  const [isFading, setIsFading] = useState(false);
 
   const saveHandler = () => {
     setSaved(!saved);
@@ -23,9 +24,14 @@ const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
   };
 
   const handleDelete = () => {
-    if (recipe.id === 1 || recipe.id === 2) {
-      alert("Cannot delete those");
-    } else deleteRecipe(recipe.id);
+    const result = window.confirm(
+      "Are you sure you want to delete the recipe?"
+    );
+    if ((result && recipe.id !== 1) || recipe.id !== 2) {
+      deleteRecipe(recipe.id);
+    } else {
+      alert("You can only delete recipes you create");
+    }
   };
 
   const handleTouchEnd = (e) => {
@@ -45,7 +51,9 @@ const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
     <div
       className={` ${
         theme === "light" ? "bg-white text-gray-900" : "bg-gray-800 text-white"
-      } p-2 md:p-3 h-96  md:h-80 md:w-60 lg:h-96 lg:w-64 flex flex-col gap-2 md:gap-2.5   rounded-md md:shadow-md`}
+      } p-2 md:p-3 h-96  md:h-80 md:w-60 lg:h-96 lg:w-64 flex flex-col gap-2 md:gap-2.5   rounded-md md:shadow-mdtransition-opacity duration-500 ${
+        isFading ? "opacity-0" : "opacity-100"
+      }`}
     >
       <div className="flex flex-row items-center">
         <p
@@ -57,7 +65,9 @@ const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
         <button
           onClick={handleDelete}
           title="click to save the recipe"
-          className="ml-auto px-1 py-1"
+          className={`${
+            recipe.id === 1 || recipe.id === 2 ? "hidden" : ""
+          } ml-auto px-1 py-1`}
         >
           <FaTrash className="textlg" />
         </button>

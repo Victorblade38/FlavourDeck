@@ -10,10 +10,12 @@ import defaultRecipes from "./components/recipes";
 function App() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || defaultTheme
+  );
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [theme, setTheme] = useState("light" || "dark");
   const [showModal, setShowModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
@@ -38,7 +40,13 @@ function App() {
 
   const deleteRecipe = (id) => {
     setData((prev) => prev.filter((task) => task.id !== id));
+    setIsFading(false);
   };
+  const defaultTheme = "light";
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const storedRecipes = localStorage.getItem("recipes");
@@ -104,7 +112,7 @@ function App() {
     <div
       className={`${
         theme === "light" ? "bg-amber-300" : "bg-gray-700"
-      } min-h-screen flex justify-center p-2 roboto-medium `}
+      } min-h-screen flex justify-center p-2 roboto-medium  transition-colors ease-in-out duration-300`}
     >
       <div className="flex flex-col gap-2 mt-6 md:mt-20 ">
         <div className="w-full flex flex-row justify-center gap-2">
