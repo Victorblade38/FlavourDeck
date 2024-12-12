@@ -75,22 +75,19 @@ function App() {
     } else {
       setFilteredData([]);
     }
-  }, [search]);
+  }, [data, search]);
 
   const toggleThemeChange = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
   const handleSaveCard = () => {
-    setLoading(true);
-    setFilteredData([]);
+    // Show only saved recipes dynamically
     if (filteredData.length === 0) {
       setFilteredData(data.filter((item) => item.saved === true));
     } else {
       setFilteredData([]);
     }
-    //console.log("Filtering Data response", filteredData);
-    setLoading(false);
   };
 
   const openModal = (recipe) => {

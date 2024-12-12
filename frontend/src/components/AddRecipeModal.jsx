@@ -26,8 +26,8 @@ const AddRecipeModal = ({ showAddModal, closeAddModal, addRecipe }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "estimatedTime") {
-      const min = 2;
-      const max = 60;
+      const min = 5;
+      const max = 120;
       const clampedValue = Math.max(min, Math.min(max, Number(value)));
       setRecipe((prevTask) => ({
         ...prevTask,
@@ -35,7 +35,7 @@ const AddRecipeModal = ({ showAddModal, closeAddModal, addRecipe }) => {
       }));
     } else if (name === "calories") {
       const min = 100;
-      const max = 600;
+      const max = 1000;
       const clampedValue = Math.max(min, Math.min(max, Number(value)));
       setRecipe((prevTask) => ({
         ...prevTask,
@@ -51,11 +51,11 @@ const AddRecipeModal = ({ showAddModal, closeAddModal, addRecipe }) => {
 
   return (
     <div
-      className={`fixed min-h-screen min-w-screen  inset-0 bg-black bg-opacity-50 ${
+      className={`fixed min-h-screen min-w-screen   inset-0 bg-black bg-opacity-50 ${
         showAddModal ? "flex" : "hidden"
       } items-center justify-center z-50`}
     >
-      <div className="w-[300px] bg-white flex flex-col gap-2 items-center p-4 rounded-lg shadow-lg">
+      <div className="w-[300px] lg:w-96 bg-white flex flex-col gap-2 items-center p-4 rounded-lg shadow-lg">
         <h1 className="text-xl font-bold">Add a recipe</h1>
         <form
           className="w-full flex flex-col gap-2  font-normal text-sm
@@ -75,7 +75,7 @@ const AddRecipeModal = ({ showAddModal, closeAddModal, addRecipe }) => {
             type="number"
             min={2}
             max={60}
-            placeholder="Enter time between 2 to 60"
+            placeholder="Enter time between 2 to 120 min"
             name="estimatedTime"
             className="focus:outline-none border-2 p-2 rounded-md"
             required
@@ -85,7 +85,7 @@ const AddRecipeModal = ({ showAddModal, closeAddModal, addRecipe }) => {
             min={100}
             max={600}
             type="number"
-            placeholder="Enter time between 100 to 600"
+            placeholder="Enter calories between 100 to 1000"
             name="calories"
             className="focus:outline-none border-2 p-2 rounded-md"
             required
