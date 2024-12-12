@@ -10,6 +10,7 @@ const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
   const [saved, setSaved] = useState(recipe.saved || false);
   const [isTouch, setIsTouch] = useState(false);
   const [isFading, setIsFading] = useState(false);
+  const notToDelete = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const saveHandler = () => {
     setSaved(!saved);
@@ -26,7 +27,7 @@ const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
     const result = window.confirm(
       "Are you sure you want to delete the recipe?"
     );
-    if ((result && recipe.id !== 1) || recipe.id !== 2) {
+    if (result && !notToDelete.includes(recipe.id)) {
       deleteRecipe(recipe.id);
     } else {
       alert("You can only delete recipes you create");
@@ -65,7 +66,7 @@ const Cards = ({ recipe, openModal, theme, deleteRecipe }) => {
           onClick={handleDelete}
           title="click to save the recipe"
           className={`${
-            recipe.id === 1 || recipe.id === 2 ? "hidden" : ""
+            notToDelete.includes(recipe.id) ? "hidden" : ""
           } ml-auto px-1 py-1`}
         >
           <FaTrash className="textlg" />
