@@ -113,9 +113,4 @@ Add some screenshots here to showcase the UI and features of your website.
 ![image](https://github.com/user-attachments/assets/9e704bf4-778f-413b-bc9f-edbf787dad73)
 ![image](https://github.com/user-attachments/assets/9a8ef133-a694-4abd-af74-9e7e73fc4540)
 
-
-
-```
-![light-mode](image-1.png)
-![dark-mode](image.png)
 ```
