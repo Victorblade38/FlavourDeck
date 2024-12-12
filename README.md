@@ -1,4 +1,4 @@
-````markdown
+
 # RecipeBook 🍴
 
 A modern recipe management web application where you can add, delete, save, and search for recipes. Built with React Vite, JavaScript, TailwindCSS, and React Icons.
@@ -32,7 +32,6 @@ Follow these steps to set up the project locally:
    ```bash
    git clone https://github.com/yourusername/recipebook.git
    ```
-````
 
 2. **Navigate to the project directory**:
 
