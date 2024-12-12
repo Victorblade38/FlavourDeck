@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import timer from "../assets/stopwatch.png";
+
 import pasta from "../assets/pasta.jpg";
-import like from "../assets/like.png";
-import liked from "../assets/liked.png";
+
 import { MdTimer } from "react-icons/md";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { FaRegHeart, FaHeart, FaTrash } from "react-icons/fa";

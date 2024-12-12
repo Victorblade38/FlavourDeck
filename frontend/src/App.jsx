@@ -1,8 +1,7 @@
-import search_icon from "./assets/search.png";
 import Cards from "./components/Cards";
 import { useEffect, useState } from "react";
 import CookCard from "./components/CookCard";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaSearch } from "react-icons/fa";
 import { MdDarkMode, MdLightMode, MdAdd } from "react-icons/md";
 import AddRecipeModal from "./components/AddRecipeModal";
 import defaultRecipes from "./components/recipes";
@@ -129,7 +128,7 @@ function App() {
               className="px-2 active:bg-gray-200"
               onClick={(e) => e.preventDefault()}
             >
-              <img src={search_icon} className="w-[14px] md:w-6" alt="Search" />
+              <FaSearch />
             </button>
           </form>
           <button
