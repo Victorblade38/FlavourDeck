@@ -108,9 +108,9 @@ function App() {
     <div
       className={`${
         theme === "light" ? "bg-amber-300" : "bg-gray-700"
-      } min-h-screen flex justify-center p-4 roboto-medium  transition-colors ease-in-out duration-300`}
+      } min-h-screen flex justify-center p-3 roboto-medium  transition-colors ease-in-out duration-300`}
     >
-      <div className="flex flex-col gap-2 mt-6 md:mt-20 p-2">
+      <div className="flex flex-col gap-2 mt-6 md:mt-20 ">
         <div className="w-full flex flex-row justify-center gap-2">
           <form
             className=" flex flex-row gap-2 border-[1px] bg-white rounded-md "
