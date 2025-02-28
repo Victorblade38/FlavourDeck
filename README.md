@@ -1,7 +1,7 @@
 
-# RecipeBook 🍴
+# FlavourDeck 🍴
 
-A modern recipe management web application where you can add, delete, save, and search for recipes. Built with React Vite, JavaScript, TailwindCSS, and React Icons.
+Platform for food lovers! Discover mouthwatering recipes from diverse cuisines, follow easy step-by-step instructions, and save your favorites for later. Want to share your own creations? Upload your recipes and inspire others with your culinary skills!
 
 ---
 
