@@ -1,5 +1,5 @@
 
-# FlavourDeck 🍴
+# FlavourDeck - Food for good mood
 
 Platform for food lovers! Discover mouthwatering recipes from diverse cuisines, follow easy step-by-step instructions, and save your favorites for later. Want to share your own creations? Upload your recipes and inspire others with your culinary skills!
 
